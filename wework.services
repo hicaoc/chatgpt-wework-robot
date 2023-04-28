@@ -1,0 +1,13 @@
+[Unit]
+Description=weixin-work
+Documentation=https://github.com/hicaoc/chatgpt-wework-robot
+
+[Service]
+WorkingDirectory=/wework/
+ExecStart=/wework/wework
+Restart=always
+RestartSec=1s
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

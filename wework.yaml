@@ -1,0 +1,13 @@
+Web:
+    Port: ":6060"
+    RootPath: "/var/www/html"
+OpenAI:
+    BaseURL: ""
+    APIKEY: ""
+    Engine: ""
+WeiXin:
+    CorpID: ""
+    AgentID: 0
+    Token: ""
+    AESKey: ""
+    Secret: "
