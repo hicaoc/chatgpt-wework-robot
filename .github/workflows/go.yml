@@ -23,8 +23,12 @@ jobs:
         
     - name: Install dependencies
       run: |
-          go mod init wework
-          go mod tidy  
+          go get .
+          go get github.com/gorilla/mux 
+          go get github.com/json-iterator/go 
+          go get github.com/sashabaranov/go-openai 
+          go get github.com/xen0n/go-workwx 
+          go get gopkg.in/yaml.v3 
 
     - name: Build
       run: go build -v ./...
