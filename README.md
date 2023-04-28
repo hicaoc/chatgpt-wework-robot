@@ -1,11 +1,9 @@
-# chatgpt-wework-robot
-企业微信应用chatgpt
+# chatgpt-wework-robot 企业微信应用chatgpt 零代码，支持国内直连Azure或Coudflare中转，无需VPN
+# 同时支持 openAI 服务器，openAI中转服务器和Azure服务器
 
-## 同时支持 openAI 服务器，openAI中转服务器和Azure服务器
+本项目参照 https://github.com/sytpb/chatgpt-wework-robot 思路
 
-#安装步骤
-
-
+### 安装步骤
 1. 申请域名，并配置A记录解析 到自己服务器的IP， 域名需要备案，否则腾讯无法验证
 2. 安装nginx和配置ssl证书（安全） 将wxwork.conf 文件，并放到nginx的配置路径，比如 /etc/nginx/site-enable/3. 未域名申请SSL证书，并将证书放到路径，
 
@@ -41,4 +39,5 @@ WeiXin:
 ```
 
 5.配置企业微信，添加 企业app
+    可以参照 https://github.com/sytpb/chatgpt-wework-robot 配置企业app部分
    
