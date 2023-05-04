@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	jsoniter "github.com/json-iterator/go"
 	"gopkg.in/yaml.v3"
@@ -45,12 +46,28 @@ func (c *config) init() {
 		os.Exit(1)
 	}
 
-	confpath := dir + "/wxwork.yaml"
+	confpath := dir + "/wework.yaml"
 
-	cc := flag.String("c", confpath, "config file path and name")
+	cc := flag.String("config", confpath, "config file path and name")
 	oo := flag.String("o", "", "print config content to stdout and exit , yaml or json format")
+	help := flag.Bool("help", false, "Show help information")
 
 	flag.Parse()
+
+	// 如果用户指定了 help 参数，则输出帮助信息
+	if *help {
+		fmt.Println("Usage:")
+		fmt.Println("  wework [OPTIONS]")
+		fmt.Println("")
+		fmt.Println("Options:")
+		fmt.Println("  --help             Show help information")
+		fmt.Println("  --config  FILENAME  Config file")
+		fmt.Println("  --o  Std Output config  format. Support yaml or json ")
+		fmt.Println("Setting environment variables to override parameters in configuration files.:")
+		fmt.Println("APPPORT BASEURL APIKEY ENGINE CORPID AGENTID TOKEN AESKEY SECRET")
+
+		return
+	}
 
 	if *cc != "" {
 		confpath = *cc
@@ -59,7 +76,7 @@ func (c *config) init() {
 	yamlFile, err := os.ReadFile(confpath)
 
 	if err != nil {
-		log.Printf("wxwork.yaml open err #%v ", err)
+		log.Printf("wework.yaml open err #%v ", err)
 		os.Exit(1)
 
 	}
@@ -73,6 +90,7 @@ func (c *config) init() {
 	// for _, v := range c.Parm.IDCfilterIP {
 	// 	c.Parm.iDCfilterIPMap[ipstrToUInt32(v)] = true
 	// }
+	readENV()
 
 	if *oo != "" {
 		if *oo == "json" {
@@ -84,6 +102,56 @@ func (c *config) init() {
 
 		}
 		os.Exit(0)
+	}
+
+}
+
+func readENV() {
+
+	port := os.Getenv("APPPORT")
+	if port != "" {
+		conf.Web.Port = ":" + port
+	}
+	rootpath := os.Getenv("ROOTPATH")
+	if rootpath != "" {
+		conf.Web.RootPath = rootpath
+	}
+	BaseURL := os.Getenv("BASEURL")
+	if BaseURL != "" {
+		conf.OpenAI.BaseURL = BaseURL
+	}
+	APIKEY := os.Getenv("APIKEY")
+	if APIKEY != "" {
+		conf.OpenAI.APIKEY = APIKEY
+	}
+
+	Engine := os.Getenv("ENGINE")
+	if Engine != "" {
+		conf.OpenAI.Engine = Engine
+	}
+	CorpID := os.Getenv("CORPID")
+	if CorpID != "" {
+		conf.WeiXin.CorpID = CorpID
+	}
+	AgentID := os.Getenv("AGENTID")
+	if AgentID != "" {
+		i, err := strconv.Atoi(AgentID)
+		if err != nil {
+			fmt.Println("Read AGENTID env parm error:", err)
+		}
+		conf.WeiXin.AgentID = int64(i)
+	}
+	Token := os.Getenv("TOKEN ")
+	if Token != "" {
+		conf.WeiXin.Token = Token
+	}
+	AESKey := os.Getenv("AESKEY")
+	if AESKey != "" {
+		conf.WeiXin.AESKey = AESKey
+	}
+	Secret := os.Getenv("SECRET")
+	if Secret != "" {
+		conf.WeiXin.Secret = Secret
 	}
 
 }

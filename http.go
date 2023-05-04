@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/xen0n/go-workwx"
@@ -24,7 +25,8 @@ func (j *jsonAPI) msghttp() {
 
 	hh, err := workwx.NewHTTPHandler(conf.WeiXin.Token, conf.WeiXin.AESKey, dummyRxMessageHandler{})
 	if err != nil {
-		panic(err)
+		fmt.Println("parm error:", err)
+		os.Exit(1)
 	}
 
 	mux := http.NewServeMux()
@@ -34,7 +36,8 @@ func (j *jsonAPI) msghttp() {
 
 	err = http.ListenAndServe(conf.Web.Port, mux)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
