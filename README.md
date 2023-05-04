@@ -2,11 +2,29 @@
 
 ChatGPT-WeWork-Robot是一款无代码应用，支持国内直连Azure或Cloudflare中转，无需VPN。同时支持openAI服务器，openAI中转服务器和Azure服务器。
 
-## 安装步骤
+# 安装步骤
 
+## 准备
 1. 申请域名，并配置A记录解析到自己服务器的IP。域名需要备案，否则腾讯无法验证。
 2. 安装nginx并配置ssl证书（安全）。将wxwork.conf文件，并放到nginx的配置路径。例如，/etc/nginx/site-enable/3。如果未申请域名SSL证书，请先申请证书，并将证书放到路径中。
-3. 将wxwork.yaml配置文件放到主程序同一个目录：
+
+# docker 部署
+```
+docker run --name wework  \ 
+     -e APPPORT="6060"  \
+     -e BASEURL="https://xxx.openai.azure.com"  \
+     -e APIKEY="xxx"  \
+     -e ENGINE="xxx"  \
+     -e CORPID="xxx" \
+     -e AGENTID=xxxx \ 
+     -e TOKEN="xxx"  \
+     -e AESKEY="xxx" \
+     -e SECRET="xxx" \ 
+   hicaoc/wework:latest
+```
+
+## 服务器独立部署
+1. 将wxwork.yaml配置文件放到主程序同一个目录：
 ```
 Web:
     Port: ":6060" # 服务器端口，nginx提供https服务器，反向代理到本程序的端口，必须和nginx中代理目标端口一致。
@@ -23,7 +41,7 @@ WeiXin:
     Secret: ""
 ```
 
-4. 启动服务器
+2. 启动服务器
 ```
 # 创建运行目录
 mkdir /wework
@@ -35,4 +53,6 @@ mkdir /wework
 systemctl enable wework
 systemctl start wework
 ```
-5. 配置企业微信，添加企业app。可参考https://github.com/sytpb/chatgpt-wework-robot中的配置企业app部分。
+
+# 配置企业微信，添加企业app。
+    可参考 https://github.com/sytpb/chatgpt-wework-robot  中的配置企业app部分。
