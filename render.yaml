@@ -1,0 +1,31 @@
+services:
+  # node web service
+  - type: web
+    name: Wework-Chatgpt
+    env: node
+    rootDir: .
+    autoDeploy: false
+    repo: https://github.com/hicaoc/chatgpt-wework-robot # optional
+    region: singapore     # optional (defaults to oregon)
+    plan: free            # optional (defaults to starter instance type)
+    branch: main          # optional (defaults to master)
+    healthCheckPath: /healthz
+    buildCommand: go build
+    startCommand: wework
+    envVars:
+      - key: APPPORT
+        sync: false
+      - key: AGENTID
+        sync: false
+      - key: TOKEN
+        sync: false
+      - key: CORPID
+        sync: false
+      - key: AESKEY
+        sync: false
+      - key: APIKEY
+        sync: false
+      - key: BASEURL
+        sync: false
+      - key: SECRET
+        sync: false
