@@ -1,4 +1,4 @@
-module xgg.one/wxwork
+module wework
 
 go 1.20
 

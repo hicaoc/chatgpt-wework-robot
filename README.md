@@ -22,6 +22,7 @@ WeiXin:
     AESKey: ""
     Secret: ""
 ```
+
 4. 启动服务器
 ```
 # 创建运行目录
@@ -29,6 +30,8 @@ mkdir /wework
 # 将编译好的执行文件放到/wework
 # 将wework.services放到/lib/systemd/system
 # 打开开机启动，并启动服务
+# 可以配置环境变量覆盖配置文件中的设置：
+    APPPORT BASEURL APIKEY ENGINE CORPID AGENTID TOKEN AESKEY SECRET
 systemctl enable wework
 systemctl start wework
 ```
