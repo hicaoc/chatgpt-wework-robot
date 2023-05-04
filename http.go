@@ -49,7 +49,7 @@ func (j *jsonAPI) msghttp2() {
 
 	router.Handle("/", http.FileServer(http.Dir(conf.Web.RootPath)))
 
-	if conf.Web.sslcrt == "" || conf.Web.sslkey == "" {
+	if conf.Web.SSLcrt == "" || conf.Web.SSLkey == "" {
 		err := http.ListenAndServe(":"+conf.Web.Port, router)
 		if err != nil {
 			fmt.Println("start http err:", err)
@@ -58,7 +58,7 @@ func (j *jsonAPI) msghttp2() {
 	} else {
 
 		//http.ListenAndServe(":9999", nil)
-		err := http.ListenAndServeTLS(":"+conf.Web.Port, conf.Web.sslcrt, conf.Web.sslkey, router)
+		err := http.ListenAndServeTLS(":"+conf.Web.Port, conf.Web.SSLcrt, conf.Web.SSLkey, router)
 		if err != nil {
 			fmt.Println("start http ssl err:", err)
 		}

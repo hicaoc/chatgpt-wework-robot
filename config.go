@@ -16,8 +16,8 @@ var jsonextra = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type config struct {
 	Web struct {
-		sslcrt   string `yaml:"SSLCRT" json:"ssl_crt"`
-		sslkey   string `yaml:"SSLKey" json:"ssl_key"`
+		SSLcrt   string `yaml:"SSLCRT" json:"ssl_crt"`
+		SSLkey   string `yaml:"SSLKey" json:"ssl_key"`
 		Port     string `yaml:"Port" json:"port"`
 		RootPath string `yaml:"RootPath" json:"root_path"`
 	} `yaml:"Web" json:"web"`
@@ -66,7 +66,7 @@ func (c *config) init() {
 		fmt.Println("Setting environment variables to override parameters in configuration files.:")
 		fmt.Println("APPPORT BASEURL APIKEY ENGINE CORPID AGENTID TOKEN AESKEY SECRET")
 
-		return
+		os.Exit(0)
 	}
 
 	if *cc != "" {
